@@ -764,6 +764,12 @@ Details::refresh ()
       const Torrent * tor;
       const Torrent * baseline = *torrents.begin ();
 
+      // mySequentialCheck
+      uniform = true;
+      baselineFlag = baseline->sequentialDownload ();
+      foreach (tor, torrents) if (baselineFlag != tor->sequentialDownload ()) { uniform = false; break; }
+      mySequentialCheck->setChecked (uniform && baselineFlag);
+
       // mySessionLimitCheck
       uniform = true;
       baselineFlag = baseline->honorsSessionLimits ();
@@ -986,6 +992,12 @@ Details::onShowBackupTrackersToggled (bool val)
 }
 
 void
+Details::onSequentialToggled (bool val)
+{
+  mySession.torrentSet (myIds, TR_KEY_sequentialDownload, val);
+  getNewData ();
+}
+void
 Details::onHonorsSessionLimitsToggled (bool val)
 {
   mySession.torrentSet (myIds, TR_KEY_honorsSessionLimits, val);
@@ -1162,6 +1174,11 @@ Details::createOptionsTab ()
 
   HIG * hig = new HIG (this);
   hig->addSectionTitle (tr ("Speed"));
+
+  c = new QCheckBox (tr ("Sequential download"));
+  mySequentialCheck = c;
+  hig->addWideControl (c);
+  connect (c, SIGNAL (clicked (bool)), this, SLOT (onSequentialToggled (bool)));
 
   c = new QCheckBox (tr ("Honor global &limits"));
   mySessionLimitCheck = c;

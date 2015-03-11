@@ -86,6 +86,7 @@ class Details: public QDialog
     QLabel * myETALabel;
     QLabel * myLastActivityLabel;
 
+    QCheckBox * mySequentialCheck;
     QCheckBox * mySessionLimitCheck;
     QCheckBox * mySingleDownCheck;
     QCheckBox * mySingleUpCheck;
@@ -140,6 +141,7 @@ class Details: public QDialog
     void onFileWantedChanged (const QSet<int>& fileIndices, bool);
     void onPathEdited (const QString& oldpath, const QString& newname);
     void onOpenRequested (const QString& path);
+    void onSequentialToggled (bool);
     void onHonorsSessionLimitsToggled (bool);
     void onDownloadLimitedToggled (bool);
     void onSpinBoxEditingFinished ();
