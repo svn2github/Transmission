@@ -1,3 +1,8 @@
+ABOUT THIS FORK
+  
+  This is Transmission with a patch to enable sequential downloading by Mikayex.
+  Mac OS X side of the patch by me. Sequential downloading is very useful if you want to immidiately start to watch a film that is downloading.
+
 ABOUT
 
   Transmission is a fast, easy, and free BitTorrent client.
