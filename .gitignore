@@ -50,3 +50,7 @@
 /utils/transmission-show
 Makefile
 Makefile.in
+xcuserdata
+project.xcworkspace
+third-party/libevent/include/event2/config.h
+third-party/miniupnp/miniupnpcstrings.h
