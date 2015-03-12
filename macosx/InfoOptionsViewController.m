@@ -339,6 +339,24 @@
         [fPeersConnectField setIntValue: maxPeers];
     else
         [fPeersConnectField setStringValue: @""];
+    
+    //get sequential info
+    enumerator = [fTorrents objectEnumerator];
+    torrent = [enumerator nextObject]; //first torrent
+
+    NSInteger sequential = [torrent usesSequential] ? NSOnState : NSOffState;
+    
+    while ((torrent = [enumerator nextObject]))
+    {
+        if (sequential != [torrent usesSequential])
+        {
+            sequential = NSMixedState;
+            break;
+        }
+    }
+
+    //set sequential view
+    [fSequentialCheck setState: sequential];
 }
 
 - (void) setUseSpeedLimit: (id) sender
@@ -527,6 +545,18 @@
     
     for (Torrent * torrent in fTorrents)
         [torrent setMaxPeerConnect: limit];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"UpdateOptionsNotification" object: self];
+}
+
+- (void) setSequential: (id) sender
+{
+    if ([(NSButton *)sender state] == NSMixedState)
+        [sender setState: NSOnState];
+    const BOOL sequential = [(NSButton *)sender state] == NSOnState;
+    
+    for (Torrent * torrent in fTorrents)
+        [torrent setSequential: sequential];
     
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UpdateOptionsNotification" object: self];
 }

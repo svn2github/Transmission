@@ -497,6 +497,17 @@ int trashDataFile(const char * filename)
 {
     return tr_torrentGetPeerLimit(fHandle);
 }
+
+- (BOOL) usesSequential
+{
+    return tr_torrentGetSequentialDownload(fHandle);
+}
+
+- (void) setSequential: (BOOL) sequential
+{
+    tr_torrentSetSequentialDownload(fHandle, sequential);
+}
+
 - (BOOL) waitingToStart
 {
     return fStat->activity == TR_STATUS_DOWNLOAD_WAIT || fStat->activity == TR_STATUS_SEED_WAIT;
