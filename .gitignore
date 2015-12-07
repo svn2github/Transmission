@@ -1,6 +1,7 @@
 *.a
 *.lo
 *.o
+.DS_Store
 .deps/
 /INSTALL
 /aclocal.m4
